@@ -1,6 +1,7 @@
 const express = require("express");
 
 const authRoutes = require("./auth");
+const projectRoutes = require("./project");
 
 const router = express.Router();
 
@@ -18,22 +19,34 @@ router.get("/", (req, res) => {
         success: true,
         project: "Lunara",
         version: "1.0.0",
-        status: "online",
         developer: "Luis González",
-        message: "Bienvenido a la API de Lunara."
+        status: "online",
+        timestamp: new Date().toISOString()
     });
 
 });
 
+// ===============================
 // Autenticación
+// ===============================
+
 router.use("/auth", authRoutes);
 
+// ===============================
+// Proyectos
+// ===============================
+
+router.use("/projects", projectRoutes);
+
+// ===============================
 // Ruta no encontrada
+// ===============================
+
 router.use((req, res) => {
 
     res.status(404).json({
         success: false,
-        message: "Ruta de la API no encontrada."
+        message: "Endpoint no encontrado."
     });
 
 });
