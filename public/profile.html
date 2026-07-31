@@ -3,116 +3,133 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Perfil | Lunara</title>
+<title>Mi Perfil | Lunara</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="animations.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
-
 <body>
 
+<nav class="navbar glass">
 
-<div class="profile-container">
+<div class="logo">
 
-
-    <header class="profile-header">
-
-        <h1>
-            🌙 Mi Perfil
-        </h1>
-
-
-        <a href="dashboard.html">
-            ← Volver al dashboard
-        </a>
-
-    </header>
-
-
-
-
-    <main class="profile-card">
-
-
-        <div class="avatar">
-
-            👤
-
-        </div>
-
-
-
-        <h2 id="username">
-            Usuario
-        </h2>
-
-
-
-        <p id="email">
-            correo@ejemplo.com
-        </p>
-
-
-
-
-        <div class="profile-info">
-
-
-            <div>
-
-                <span>
-                    Plan:
-                </span>
-
-                <strong id="plan">
-                    Free
-                </strong>
-
-            </div>
-
-
-
-
-            <div>
-
-                <span>
-                    Fecha de registro:
-                </span>
-
-                <strong id="created">
-                    --
-                </strong>
-
-            </div>
-
-
-
-        </div>
-
-
-
-        <button id="logout">
-
-            Cerrar sesión
-
-        </button>
-
-
-
-    </main>
-
+🌙 Lunara
 
 </div>
 
+<a href="dashboard.html" class="btn">
 
+Dashboard
+
+</a>
+
+</nav>
+
+<section class="section">
+
+<h1 class="section-title">
+
+Mi Perfil
+
+</h1>
+
+<div class="glass card">
+
+<div style="text-align:center;">
+
+<img
+
+id="avatar"
+
+src="https://placehold.co/180x180"
+
+style="width:180px;height:180px;border-radius:50%;object-fit:cover;">
+
+<br><br>
+
+<input
+
+type="file"
+
+id="avatarInput"
+
+accept="image/*">
+
+</div>
+
+<br>
+
+<label>Nombre</label>
+
+<input
+
+id="username"
+
+type="text"
+
+placeholder="Tu nombre">
+
+<br><br>
+
+<label>Correo</label>
+
+<input
+
+id="email"
+
+type="email"
+
+placeholder="correo@gmail.com">
+
+<br><br>
+
+<label>Nueva contraseña</label>
+
+<input
+
+id="password"
+
+type="password"
+
+placeholder="********">
+
+<br><br>
+
+<label>Plan</label>
+
+<input
+
+value="Free"
+
+disabled>
+
+<br><br>
+
+<button
+
+class="btn"
+
+id="saveProfile">
+
+Guardar Cambios
+
+</button>
+
+</div>
+
+</section>
 
 <script src="profile.js"></script>
-
 
 </body>
 
