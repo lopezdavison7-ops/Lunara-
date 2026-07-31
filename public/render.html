@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generando video | Lunara</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="render-container">
+
+    <div class="render-card">
+
+        <h1>🌙 Lunara</h1>
+
+        <h2>
+            Generando tu video...
+        </h2>
+
+        <p>
+            Estamos creando tu detalle con fotos,
+            música y animaciones.
+        </p>
+
+        <div class="progress-box">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+        <p id="progressText">
+
+            Preparando archivos...
+
+        </p>
+
+        <video
+            id="previewVideo"
+            controls
+            style="display:none;"
+        ></video>
+
+        <br>
+
+        <a
+
+            id="downloadButton"
+
+            class="btn"
+
+            style="display:none;"
+
+            download
+
+        >
+
+            📥 Descargar Video
+
+        </a>
+
+        <br><br>
+
+        <a href="dashboard.html">
+
+            ← Volver al Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+<script src="render.js"></script>
+
+</body>
+
+</html>
