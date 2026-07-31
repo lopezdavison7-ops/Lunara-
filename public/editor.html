@@ -10,156 +10,156 @@
     <title>Editor | Lunara</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="editor.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
-
 <body>
-
 
 <div class="editor-container">
 
+    <aside class="sidebar">
 
-    <header class="editor-header">
+        <h2>🌙 Lunara</h2>
 
-        <h1>
-            🌙 Editor Lunara
-        </h1>
+        <button class="tool">
+            📷 Agregar fotos
+        </button>
 
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            multiple
+        >
 
-        <a href="dashboard.html">
-            Volver al panel
-        </a>
+        <button class="tool">
+            🎵 Agregar música
+        </button>
 
-    </header>
+        <input
+            type="file"
+            id="musicInput"
+            accept="audio/*"
+        >
 
+        <button class="tool">
+            ✍️ Mensaje
+        </button>
 
+        <input
 
-    <main class="editor-panel">
+            id="textInput"
 
+            type="text"
 
-        <section class="editor-card">
+            placeholder="Escribe tu mensaje..."
 
+        >
 
-            <h2>
-                Crea tu detalle especial
-            </h2>
+        <button class="tool">
 
+            ❤️ Corazones
 
-            <input
-                type="text"
-                id="title"
-                placeholder="Título del detalle"
+        </button>
+
+        <button class="tool">
+
+            ✨ Partículas
+
+        </button>
+
+        <button class="tool">
+
+            🌸 Pétalos
+
+        </button>
+
+        <button class="tool">
+
+            🎆 Fuegos Artificiales
+
+        </button>
+
+    </aside>
+
+    <main class="workspace">
+
+        <div class="canvas">
+
+            <img
+
+                id="previewImage"
+
+                src="https://placehold.co/400x700"
+
+                alt="Vista previa"
+
             >
 
+            <div
 
+                id="previewText"
 
-            <select id="template">
+                class="canvas-text"
 
-
-                <option value="amor">
-                    ❤️ Amor
-                </option>
-
-
-                <option value="madres">
-                    🌷 Día de las Madres
-                </option>
-
-
-                <option value="cumpleanos">
-                    🎂 Cumpleaños
-                </option>
-
-
-                <option value="aniversario">
-                    💍 Aniversario
-                </option>
-
-
-            </select>
-
-
-
-
-            <textarea
-                id="message"
-                placeholder="Escribe tu mensaje especial..."
-            ></textarea>
-
-
-
-
-            <label>
-                Subir foto
-            </label>
-
-            <input
-                type="file"
-                id="image"
-                accept="image/*"
             >
 
-
-
-
-            <label>
-                Agregar música
-            </label>
-
-            <input
-                type="file"
-                id="music"
-                accept="audio/*"
-            >
-
-
-
-
-            <button id="createProject">
-
-                Crear detalle ✨
-
-            </button>
-
-
-
-        </section>
-
-
-
-
-
-        <section class="preview-card">
-
-
-            <h2>
-                Vista previa
-            </h2>
-
-
-            <div id="preview">
-
-
-                Tu diseño aparecerá aquí 🌙
-
+                Tu mensaje aparecerá aquí
 
             </div>
 
-
-        </section>
-
-
+        </div>
 
     </main>
 
+</div>
+
+<div class="topbar">
+
+    <button
+
+        onclick="saveProject()"
+
+        class="btn"
+
+    >
+
+        💾 Guardar
+
+    </button>
+
+    <button
+
+        onclick="generateVideo()"
+
+        class="btn"
+
+    >
+
+        🎬 Generar Video
+
+    </button>
 
 </div>
 
+<audio
 
+    id="previewMusic"
+
+    controls
+
+    style="display:none;"
+
+></audio>
 
 <script src="editor.js"></script>
-
+<script src="effects.js"></script>
+<script src="particles.js"></script>
 
 </body>
 
