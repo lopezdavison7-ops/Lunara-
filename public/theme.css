@@ -1,0 +1,170 @@
+/*
+==================================
+ LUNARA PREMIUM THEME
+ Creado por Luis González
+==================================
+*/
+
+:root{
+
+    --primary:#7C3AED;
+    --secondary:#A855F7;
+    --accent:#EC4899;
+
+    --bg:#09090F;
+    --bg2:#121222;
+
+    --glass:rgba(255,255,255,.08);
+
+    --white:#FFFFFF;
+
+    --text:#D4D4D8;
+
+    --border:rgba(255,255,255,.15);
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:
+    "Poppins",
+    sans-serif;
+
+    color:var(--white);
+
+    background:
+    linear-gradient(
+    -45deg,
+    #09090F,
+    #111827,
+    #261447,
+    #4C1D95);
+
+    background-size:400% 400%;
+
+    animation:aurora 15s ease infinite;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+.glass{
+
+    background:var(--glass);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+}
+
+.title{
+
+    font-size:3rem;
+
+    font-weight:700;
+
+    background:linear-gradient(
+
+    90deg,
+
+    #ffffff,
+
+    #d8b4fe,
+
+    #f9a8d4
+
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.subtitle{
+
+    color:var(--text);
+
+    font-size:1.1rem;
+
+    margin-top:10px;
+
+}
+
+.btn{
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    background:
+
+    linear-gradient(
+
+    90deg,
+
+    var(--primary),
+
+    var(--accent)
+
+    );
+
+    color:white;
+
+    transition:.35s;
+
+}
+
+.btn:hover{
+
+    transform:
+
+    translateY(-4px)
+    scale(1.03);
+
+    box-shadow:
+
+    0 0 35px
+
+    rgba(168,85,247,.45);
+
+}
+
+.card{
+
+    padding:30px;
+
+    border-radius:24px;
+
+}
+
+.section{
+
+    width:min(1200px,95%);
+
+    margin:auto;
+
+    padding:80px 0;
+
+}
