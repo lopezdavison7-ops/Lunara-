@@ -1,0 +1,182 @@
+/*
+==================================
+ LUNARA PREMIUM ANIMATIONS
+ Creado por Luis González
+==================================
+*/
+
+/* Aparición */
+
+.fade-up{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    animation:fadeUp 1s ease forwards;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Zoom */
+
+.zoom{
+
+    animation:zoomIn .7s ease;
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        transform:scale(.8);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* Flotar */
+
+.float{
+
+    animation:float 4s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* Brillo */
+
+.glow{
+
+    animation:glow 2s infinite alternate;
+
+}
+
+@keyframes glow{
+
+    from{
+
+        text-shadow:
+
+        0 0 10px #7c4dff,
+
+        0 0 20px #7c4dff;
+
+    }
+
+    to{
+
+        text-shadow:
+
+        0 0 25px #b388ff,
+
+        0 0 45px #b388ff;
+
+    }
+
+}
+
+/* Botón */
+
+.button-pop{
+
+    transition:.3s;
+
+}
+
+.button-pop:hover{
+
+    transform:scale(1.06);
+
+}
+
+/* Tarjetas */
+
+.card-hover{
+
+    transition:.4s;
+
+}
+
+.card-hover:hover{
+
+    transform:
+
+    translateY(-8px);
+
+}
+
+/* Fondo Aurora */
+
+@keyframes aurora{
+
+    0%{
+
+        background-position:0% 50%;
+
+    }
+
+    50%{
+
+        background-position:100% 50%;
+
+    }
+
+    100%{
+
+        background-position:0% 50%;
+
+    }
+
+}
