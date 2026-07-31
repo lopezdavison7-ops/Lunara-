@@ -1,74 +1,120 @@
 /*
 ==================================
- LUNARA PROFILE SCRIPT
+ LUNARA PROFILE
  Creado por Luis González
 ==================================
 */
 
-const token = localStorage.getItem("lunara_token");
+const avatar = document.getElementById("avatar");
+const avatarInput = document.getElementById("avatarInput");
 
-// Verificar sesión
-if (!token) {
-    window.location.href = "login.html";
-}
+const username = document.getElementById("username");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 
-// Cargar perfil
-async function loadProfile() {
+const saveButton = document.getElementById("saveProfile");
 
-    try {
+// Cargar usuario
+async function loadProfile(){
 
-        const response = await fetch("/api/auth/profile", {
+    try{
 
-            method: "GET",
+        const token = localStorage.getItem("token");
 
-            headers: {
-                "Authorization": `Bearer ${token}`
+        if(!token){
+
+            location.href="login.html";
+
+            return;
+
+        }
+
+        const response = await fetch("/api/profile",{
+
+            headers:{
+
+                Authorization:`Bearer ${token}`
+
             }
 
         });
 
         const data = await response.json();
 
-        if (!data.success) {
+        username.value = data.username || "";
 
-            localStorage.removeItem("lunara_token");
+        email.value = data.email || "";
 
-            return window.location.href = "login.html";
+        if(data.avatar){
+
+            avatar.src=data.avatar;
 
         }
 
-        document.getElementById("username").textContent =
-            data.user.username;
-
-        document.getElementById("email").textContent =
-            data.user.email;
-
-        document.getElementById("plan").textContent =
-            data.user.plan || "Free";
-
-        document.getElementById("created").textContent =
-            data.user.created_at || "--";
-
-    } catch (error) {
+    }catch(error){
 
         console.error(error);
-
-        alert("No se pudo cargar el perfil.");
 
     }
 
 }
 
-// Cerrar sesión
-document
-.getElementById("logout")
-.addEventListener("click", () => {
+loadProfile();
 
-    localStorage.removeItem("lunara_token");
+// Cambiar avatar
 
-    window.location.href = "login.html";
+avatarInput.addEventListener("change",(e)=>{
+
+    const file=e.target.files[0];
+
+    if(!file) return;
+
+    avatar.src=URL.createObjectURL(file);
 
 });
 
-// Ejecutar
-loadProfile();
+// Guardar perfil
+
+saveButton.addEventListener("click",async()=>{
+
+    try{
+
+        const token=localStorage.getItem("token");
+
+        const response=await fetch("/api/profile",{
+
+            method:"PUT",
+
+            headers:{
+
+                "Content-Type":"application/json",
+
+                Authorization:`Bearer ${token}`
+
+            },
+
+            body:JSON.stringify({
+
+                username:username.value,
+
+                email:email.value,
+
+                password:password.value
+
+            })
+
+        });
+
+        const result=await response.json();
+
+        alert(result.message);
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("No se pudo guardar el perfil.");
+
+    }
+
+});
