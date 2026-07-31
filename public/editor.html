@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editor | Lunara</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="editor-container">
+
+
+    <header class="editor-header">
+
+        <h1>
+            🌙 Editor Lunara
+        </h1>
+
+
+        <a href="dashboard.html">
+            Volver al panel
+        </a>
+
+    </header>
+
+
+
+    <main class="editor-panel">
+
+
+        <section class="editor-card">
+
+
+            <h2>
+                Crea tu detalle especial
+            </h2>
+
+
+            <input
+                type="text"
+                id="title"
+                placeholder="Título del detalle"
+            >
+
+
+
+            <select id="template">
+
+
+                <option value="amor">
+                    ❤️ Amor
+                </option>
+
+
+                <option value="madres">
+                    🌷 Día de las Madres
+                </option>
+
+
+                <option value="cumpleanos">
+                    🎂 Cumpleaños
+                </option>
+
+
+                <option value="aniversario">
+                    💍 Aniversario
+                </option>
+
+
+            </select>
+
+
+
+
+            <textarea
+                id="message"
+                placeholder="Escribe tu mensaje especial..."
+            ></textarea>
+
+
+
+
+            <label>
+                Subir foto
+            </label>
+
+            <input
+                type="file"
+                id="image"
+                accept="image/*"
+            >
+
+
+
+
+            <label>
+                Agregar música
+            </label>
+
+            <input
+                type="file"
+                id="music"
+                accept="audio/*"
+            >
+
+
+
+
+            <button id="createProject">
+
+                Crear detalle ✨
+
+            </button>
+
+
+
+        </section>
+
+
+
+
+
+        <section class="preview-card">
+
+
+            <h2>
+                Vista previa
+            </h2>
+
+
+            <div id="preview">
+
+
+                Tu diseño aparecerá aquí 🌙
+
+
+            </div>
+
+
+        </section>
+
+
+
+    </main>
+
+
+</div>
+
+
+
+<script src="editor.js"></script>
+
+
+</body>
+
+</html>
