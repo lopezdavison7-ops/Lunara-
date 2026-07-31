@@ -1,181 +1,76 @@
 /*
 ==================================
- LUNARA EDITOR SCRIPT
+ LUNARA EDITOR
  Creado por Luis González
 ==================================
 */
 
-const token = localStorage.getItem("lunara_token");
+const canvas = document.querySelector(".canvas");
 
+const imageInput = document.getElementById("imageInput");
 
-// Si no hay sesión
-if (!token) {
+const musicInput = document.getElementById("musicInput");
 
-    window.location.href = "login.html";
+const textInput = document.getElementById("textInput");
 
-}
+const previewImage = document.getElementById("previewImage");
 
+const previewText = document.getElementById("previewText");
 
-// Elementos
-const titleInput = document.getElementById("title");
-const templateInput = document.getElementById("template");
-const messageInput = document.getElementById("message");
+const previewMusic = document.getElementById("previewMusic");
 
-const imageInput = document.getElementById("image");
-const musicInput = document.getElementById("music");
+// Subir imagen
+imageInput.addEventListener("change", (event) => {
 
-const preview = document.getElementById("preview");
+    const file = event.target.files[0];
 
-const createButton = document.getElementById("createProject");
+    if (!file) return;
 
+    const reader = new FileReader();
 
+    reader.onload = function(e){
 
-// Vista previa en vivo
-function updatePreview() {
-
-
-    preview.innerHTML = `
-
-        <div class="preview-content">
-
-            <h2>
-                ${titleInput.value || "Mi detalle especial"}
-            </h2>
-
-
-            <p>
-                ${messageInput.value || "Escribe tu mensaje..."}
-            </p>
-
-
-            <small>
-                Plantilla:
-                ${templateInput.value}
-            </small>
-
-        </div>
-
-    `;
-
-
-}
-
-
-
-// Eventos
-titleInput.addEventListener(
-    "input",
-    updatePreview
-);
-
-
-messageInput.addEventListener(
-    "input",
-    updatePreview
-);
-
-
-templateInput.addEventListener(
-    "change",
-    updatePreview
-);
-
-
-
-// Crear proyecto
-createButton.addEventListener(
-"click",
-async () => {
-
-
-    const title = titleInput.value;
-    const template = templateInput.value;
-
-
-    if (!title) {
-
-        alert(
-            "Escribe un título para tu detalle."
-        );
-
-        return;
+        previewImage.src = e.target.result;
 
     }
 
-
-
-    try {
-
-
-        const response = await fetch(
-            "/api/projects",
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json",
-
-                    "Authorization":
-                    `Bearer ${token}`
-
-                },
-
-
-                body: JSON.stringify({
-
-                    title,
-                    template
-
-                })
-
-
-            }
-        );
-
-
-
-        const data = await response.json();
-
-
-
-        if (data.success) {
-
-
-            alert(
-                "✨ Detalle creado correctamente."
-            );
-
-
-            window.location.href =
-            "dashboard.html";
-
-
-        } else {
-
-
-            alert(
-                data.message
-            );
-
-
-        }
-
-
-
-    } catch(error) {
-
-
-        console.error(error);
-
-
-        alert(
-            "Error al crear el proyecto."
-        );
-
-
-    }
-
+    reader.readAsDataURL(file);
 
 });
+
+// Cambiar texto
+textInput.addEventListener("input", () => {
+
+    previewText.textContent =
+
+        textInput.value || "Escribe un mensaje";
+
+});
+
+// Vista previa de música
+musicInput.addEventListener("change",(event)=>{
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    previewMusic.src = URL.createObjectURL(file);
+
+});
+
+// Descargar proyecto (temporal)
+function saveProject(){
+
+    alert("Proyecto guardado correctamente.");
+
+}
+
+// Generar video
+async function generateVideo(){
+
+    alert("Generando video...");
+
+    // Aquí después conectaremos
+    // con la API
+
+}
