@@ -474,4 +474,237 @@ body{
 
     }
 
+}/*==================================
+  FOOTER
+==================================*/
+
+footer{
+
+    width:90%;
+
+    margin:80px auto 40px;
+
+    padding:50px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+}
+
+footer h2{
+
+    font-size:38px;
+
+    margin-bottom:15px;
+
+}
+
+footer p{
+
+    color:#d4d4d8;
+
+    line-height:1.8;
+
+}
+
+/*==================================
+  EFECTOS
+==================================*/
+
+.floating-heart{
+
+    position:fixed;
+
+    bottom:-50px;
+
+    color:#ff4d8d;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+    animation:heartFloat linear forwards;
+
+}
+
+@keyframes heartFloat{
+
+    from{
+
+        transform:
+        translateY(0)
+        rotate(0deg);
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:
+        translateY(-120vh)
+        rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+
+.particle{
+
+    position:fixed;
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    opacity:.8;
+
+    pointer-events:none;
+
+    animation:particleFade linear forwards;
+
+}
+
+@keyframes particleFade{
+
+    from{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:scale(0);
+
+        opacity:0;
+
+    }
+
+}
+
+/*==================================
+  RESPONSIVE
+==================================*/
+
+@media(max-width:992px){
+
+    .hero{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:50px;
+
+    }
+
+    .hero-left,
+    .hero-right{
+
+        width:100%;
+
+    }
+
+    .title{
+
+        font-size:48px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .hero{
+
+        padding:30px;
+
+    }
+
+    .title{
+
+        font-size:36px;
+
+    }
+
+    .subtitle{
+
+        font-size:17px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    .phone{
+
+        width:100%;
+
+        max-width:340px;
+
+    }
+
+    .section-title{
+
+        font-size:34px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .logo{
+
+        font-size:24px;
+
+    }
+
+    .title{
+
+        font-size:30px;
+
+    }
+
+    .section{
+
+        padding:60px 0;
+
+    }
+
 }
