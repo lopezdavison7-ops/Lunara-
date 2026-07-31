@@ -1,0 +1,112 @@
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
+
+const authMiddleware = require("../middlewares/authMiddleware");
+
+const router = express.Router();
+
+/*
+==================================
+ LUNARA UPLOAD ROUTES
+ Creado por Luis González
+==================================
+*/
+
+// Configuración de almacenamiento
+
+const storage = multer.diskStorage({
+
+    destination: (req, file, callback) => {
+
+        callback(
+            null,
+            "uploads/"
+        );
+
+    },
+
+    filename: (req, file, callback) => {
+
+        const uniqueName =
+            Date.now() +
+            "-" +
+            Math.round(Math.random() * 1e9) +
+            path.extname(file.originalname);
+
+        callback(
+            null,
+            uniqueName
+        );
+
+    }
+
+});
+
+
+
+// Solo imágenes
+
+const upload = multer({
+
+    storage,
+
+    fileFilter: (req, file, callback) => {
+
+        if (
+            file.mimetype.startsWith("image/")
+        ) {
+
+            callback(
+                null,
+                true
+            );
+
+        } else {
+
+            callback(
+                new Error(
+                    "Solo se permiten imágenes."
+                )
+            );
+
+        }
+
+    }
+
+});
+
+
+
+
+// Subir imágenes
+
+router.post(
+
+    "/",
+
+    authMiddleware,
+
+    upload.array(
+        "images",
+        30
+    ),
+
+    (req, res) => {
+
+        res.json({
+
+            success: true,
+
+            message:
+                "Imágenes subidas correctamente.",
+
+            files: req.files
+
+        });
+
+    }
+
+);
+
+module.exports = router;
