@@ -707,4 +707,197 @@ footer p{
 
     }
 
+}/*==================================
+  FONDO AURORA
+==================================*/
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at 15% 25%, rgba(168,85,247,.18), transparent 35%),
+    radial-gradient(circle at 85% 20%, rgba(236,72,153,.15), transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(59,130,246,.15), transparent 35%);
+
+    pointer-events:none;
+
+    z-index:-2;
+
+    animation:auroraMove 18s ease-in-out infinite;
+
+}
+
+@keyframes auroraMove{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.15);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/*==================================
+  FONDO ESTRELLADO
+==================================*/
+
+#particles{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-1;
+
+    overflow:hidden;
+
+}
+
+.star{
+
+    position:absolute;
+
+    width:3px;
+
+    height:3px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    animation:twinkle 3s infinite;
+
+}
+
+@keyframes twinkle{
+
+    0%{
+
+        opacity:.2;
+
+        transform:scale(.8);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.8);
+
+    }
+
+    100%{
+
+        opacity:.2;
+
+        transform:scale(.8);
+
+    }
+
+}
+
+/*==================================
+  CURSOR LUMINOSO
+==================================*/
+
+.cursor-light{
+
+    position:fixed;
+
+    width:250px;
+
+    height:250px;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(
+
+    rgba(168,85,247,.25),
+
+    transparent 70%
+
+    );
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+
+    z-index:0;
+
+    transition:.08s;
+
+}
+
+/*==================================
+  TEXTO DEGRADADO
+==================================*/
+
+.gradient-text{
+
+    background:
+
+    linear-gradient(
+
+    90deg,
+
+    #ffffff,
+
+    #c084fc,
+
+    #ec4899
+
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+/*==================================
+  IMÁGENES
+==================================*/
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+    border-radius:18px;
+
+}
+
+.preview-image{
+
+    transition:.5s;
+
+}
+
+.preview-image:hover{
+
+    transform:
+
+    scale(1.04);
+
 }
