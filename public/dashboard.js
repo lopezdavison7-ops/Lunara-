@@ -1,49 +1,64 @@
 /*
 ==================================
- LUNARA DASHBOARD SCRIPT
+ LUNARA DASHBOARD
  Creado por Luis González
 ==================================
 */
 
-const token = localStorage.getItem("lunara_token");
+const token = localStorage.getItem("token");
 
 
-// Verificar sesión
-if (!token) {
+if(!token){
 
-    window.location.href = "login.html";
+    window.location.href="login.html";
 
 }
 
 
-// Cargar información del usuario
-async function loadProfile() {
+const username = document.getElementById("username");
 
-    try {
+const plan = document.getElementById("plan");
 
-        const response = await fetch("/api/auth/profile", {
+const projectsBox = document.getElementById("projects");
 
-            method: "GET",
 
-            headers: {
-                "Authorization": `Bearer ${token}`
+// Cargar usuario
+
+async function loadUser(){
+
+    try{
+
+        const response = await fetch("/api/profile",{
+
+            headers:{
+
+                Authorization:`Bearer ${token}`
+
             }
 
         });
 
 
-        const data = await response.json();
+        const user = await response.json();
 
 
-        if (data.success) {
+        if(username){
 
-            document.getElementById("welcome").textContent =
-                `Hola, ${data.user.username} 👋`;
+            username.textContent =
+            user.username;
 
         }
 
 
-    } catch (error) {
+        if(plan){
+
+            plan.textContent =
+            user.plan;
+
+        }
+
+
+    }catch(error){
 
         console.error(error);
 
@@ -52,80 +67,67 @@ async function loadProfile() {
 }
 
 
-
 // Cargar proyectos
-async function loadProjects() {
 
-    const projectsContainer =
-        document.getElementById("projects");
+async function loadProjects(){
+
+    try{
 
 
-    try {
+        const response = await fetch("/api/projects",{
 
-        const response = await fetch("/api/projects", {
+            headers:{
 
-            method: "GET",
+                Authorization:`Bearer ${token}`
 
-            headers: {
-                "Authorization": `Bearer ${token}`
             }
 
         });
 
 
-        const data = await response.json();
+        const projects =
+        await response.json();
 
 
-        if (data.success && data.projects.length > 0) {
+
+        if(projectsBox){
+
+            projectsBox.innerHTML="";
 
 
-            projectsContainer.innerHTML = "";
+            projects.forEach(project=>{
 
 
-            data.projects.forEach(project => {
+                projectsBox.innerHTML += `
 
-
-                const card = document.createElement("div");
-
-
-                card.className = "project-item";
-
-
-                card.innerHTML = `
+                <div class="card glass">
 
                     <h3>
-                        ${project.title}
+                    ${project.title}
                     </h3>
 
                     <p>
-                        Plantilla: ${project.template}
+                    Estado:
+                    ${project.status}
                     </p>
 
+                    <a class="btn"
+                    href="editor.html?id=${project._id}">
+                    Editar
+                    </a>
+
+                </div>
+
                 `;
-
-
-                projectsContainer.appendChild(card);
 
 
             });
 
 
-        } else {
-
-
-            projectsContainer.innerHTML = `
-
-                <p>
-                    Todavía no tienes proyectos creados.
-                </p>
-
-            `;
-
-
         }
 
 
-    } catch (error) {
+    }catch(error){
 
         console.error(error);
 
@@ -134,26 +136,17 @@ async function loadProjects() {
 }
 
 
-
 // Cerrar sesión
-document
-.getElementById("logout")
-.addEventListener("click", () => {
+
+function logout(){
+
+    localStorage.removeItem("token");
+
+    window.location.href="login.html";
+
+}
 
 
-    localStorage.removeItem(
-        "lunara_token"
-    );
-
-
-    window.location.href = "login.html";
-
-
-});
-
-
-
-// Ejecutar
-loadProfile();
+loadUser();
 
 loadProjects();
