@@ -1,90 +1,146 @@
 require("dotenv").config();
 
 const express = require("express");
-const path = require("path");
+const mongoose = require("mongoose");
 const cors = require("cors");
-const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
-
-const routes = require("./routes");
+const path = require("path");
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
 
-/* ==========================
-   Seguridad
-========================== */
-
-app.use(helmet());
+// ================================
+// CONFIGURACIÓN
+// ================================
 
 app.use(cors());
-
-app.use(
-    rateLimit({
-        windowMs: 15 * 60 * 1000,
-        max: 300,
-        standardHeaders: true,
-        legacyHeaders: false
-    })
-);
-
-/* ==========================
-   Middlewares
-========================== */
 
 app.use(express.json());
 
 app.use(express.urlencoded({
-    extended: true
+    extended:true
 }));
 
-/* ==========================
-   Archivos públicos
-========================== */
 
-app.use(express.static(path.join(__dirname, "public")));
+// Archivos públicos
 
-/* ==========================
-   Rutas
-========================== */
+app.use(express.static(
+    path.join(__dirname,"public")
+));
 
-// Página principal
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+
+// Archivos subidos
+
+app.use("/uploads",
+
+    express.static(
+
+        path.join(__dirname,"uploads")
+
+    )
+
+);
+
+
+// ================================
+// CONEXIÓN MONGODB
+// ================================
+
+mongoose.connect(
+
+    process.env.MONGO_URI
+
+)
+
+.then(()=>{
+
+    console.log("✅ MongoDB conectado");
+
+})
+
+.catch(err=>{
+
+    console.log(
+        "❌ Error MongoDB:",
+        err
+    );
+
 });
 
-// API
-app.use("/api", routes);
 
-/* ==========================
-   Error 404
-========================== */
+// ================================
+// RUTAS
+// ================================
 
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Página no encontrada."
-    });
+app.use(
+    "/api/auth",
+    require("./routes/auth")
+);
+
+
+app.use(
+    "/api/profile",
+    require("./routes/profile")
+);
+
+
+app.use(
+    "/api/projects",
+    require("./routes/projects")
+);
+
+
+app.use(
+    "/api/render",
+    require("./routes/render")
+);
+
+
+app.use(
+    "/api/upload",
+    require("./routes/upload")
+);
+
+
+app.use(
+    "/api/admin",
+    require("./routes/admin")
+);
+
+
+// Ruta principal
+
+app.get("/",(req,res)=>{
+
+    res.sendFile(
+
+        path.join(
+
+            __dirname,
+
+            "public",
+
+            "index.html"
+
+        )
+
+    );
+
 });
 
-/* ==========================
-   Iniciar servidor
-========================== */
 
-app.listen(PORT, () => {
+// ================================
+// SERVIDOR
+// ================================
 
-    console.clear();
+const PORT = process.env.PORT || 3000;
 
-    console.log(`
-╔══════════════════════════════════════╗
-║              LUNARA                  ║
-╠══════════════════════════════════════╣
-║ Estado      : Online                 ║
-║ Puerto      : ${PORT}
-║ Desarrollador: Luis González         ║
-║ Versión     : 1.0.0                  ║
-╚══════════════════════════════════════╝
-`);
+
+app.listen(PORT,()=>{
+
+    console.log(
+
+        `🌙 Lunara funcionando en puerto ${PORT}`
+
+    );
 
 });
