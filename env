@@ -1,9 +1,0 @@
-PORT=3000
-
-JWT_SECRET=CAMBIA_ESTA_CLAVE_POR_UNA_MUY_SEGURA
-
-APP_NAME=Lunara
-
-APP_URL=http://localhost:3000
-
-NODE_ENV=development
