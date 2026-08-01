@@ -1,36 +1,65 @@
 const express = require("express");
 const router = express.Router();
 
-const Project = require("../models/Project");
 const auth = require("../middlewares/auth");
+const Project = require("../models/projects");
 
-/*
-==================================
- LUNARA PROJECT ROUTES
- Creado por Luis González
-==================================
-*/
 
 // Obtener todos los proyectos del usuario
 router.get("/", auth, async (req, res) => {
 
     try {
 
-        const projects = await Project
-            .find({ user: req.user.id })
-            .sort({ createdAt: -1 });
+        const projects = await Project.find({
+            user: req.user.id
+        }).sort({
+            createdAt: -1
+        });
 
         res.json(projects);
 
     } catch (error) {
 
+        console.error(error);
+
         res.status(500).json({
-            message: "Error al obtener los proyectos."
+            message: "Error obteniendo proyectos"
         });
 
     }
 
 });
+
+
+// Crear proyecto
+router.post("/", auth, async (req, res) => {
+
+    try {
+
+        const project = await Project.create({
+
+            user: req.user.id,
+
+            title: req.body.title || "Nuevo proyecto",
+
+            description: req.body.description || ""
+
+        });
+
+        res.json(project);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            message: "Error creando proyecto"
+        });
+
+    }
+
+});
+
 
 // Obtener un proyecto
 router.get("/:id", auth, async (req, res) => {
@@ -48,9 +77,7 @@ router.get("/:id", auth, async (req, res) => {
         if (!project) {
 
             return res.status(404).json({
-
-                message: "Proyecto no encontrado."
-
+                message: "Proyecto no encontrado"
             });
 
         }
@@ -59,50 +86,16 @@ router.get("/:id", auth, async (req, res) => {
 
     } catch (error) {
 
+        console.error(error);
+
         res.status(500).json({
-
-            message: "Error al obtener el proyecto."
-
+            message: "Error"
         });
 
     }
 
 });
 
-// Crear proyecto
-router.post("/", auth, async (req, res) => {
-
-    try {
-
-        const project = await Project.create({
-
-            user: req.user.id,
-
-            title: req.body.title,
-
-            template: req.body.template,
-
-            photos: req.body.photos || [],
-
-            music: req.body.music || "",
-
-            message: req.body.message || ""
-
-        });
-
-        res.status(201).json(project);
-
-    } catch (error) {
-
-        res.status(500).json({
-
-            message: "No se pudo crear el proyecto."
-
-        });
-
-    }
-
-});
 
 // Actualizar proyecto
 router.put("/:id", auth, async (req, res) => {
@@ -112,19 +105,14 @@ router.put("/:id", auth, async (req, res) => {
         const project = await Project.findOneAndUpdate(
 
             {
-
                 _id: req.params.id,
-
                 user: req.user.id
-
             },
 
             req.body,
 
             {
-
                 new: true
-
             }
 
         );
@@ -133,15 +121,16 @@ router.put("/:id", auth, async (req, res) => {
 
     } catch (error) {
 
+        console.error(error);
+
         res.status(500).json({
-
-            message: "No se pudo actualizar."
-
+            message: "Error actualizando proyecto"
         });
 
     }
 
 });
+
 
 // Eliminar proyecto
 router.delete("/:id", auth, async (req, res) => {
@@ -158,15 +147,17 @@ router.delete("/:id", auth, async (req, res) => {
 
         res.json({
 
-            message: "Proyecto eliminado."
+            message: "Proyecto eliminado"
 
         });
 
     } catch (error) {
 
+        console.error(error);
+
         res.status(500).json({
 
-            message: "No se pudo eliminar."
+            message: "Error eliminando proyecto"
 
         });
 
