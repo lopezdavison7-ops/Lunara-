@@ -1,3 +1,7 @@
+const ffmpeg = require("fluent-ffmpeg");
+const path = require("path");
+const fs = require("fs");
+
 /*
 ==================================
  LUNARA VIDEO GENERATOR
@@ -5,112 +9,77 @@
 ==================================
 */
 
-const ffmpeg = require("fluent-ffmpeg");
-const path = require("path");
-const fs = require("fs");
+async function generateVideo(project) {
 
-class VideoGenerator {
+    return new Promise((resolve, reject) => {
 
-    constructor() {
+        const uploadsDir = path.join(__dirname, "../uploads");
+        const outputDir = path.join(__dirname, "../videos");
 
-        this.outputFolder = path.join(
-            __dirname,
-            "..",
-            "videos"
+        if (!fs.existsSync(outputDir)) {
+
+            fs.mkdirSync(outputDir, {
+                recursive: true
+            });
+
+        }
+
+        const outputFile = path.join(
+
+            outputDir,
+
+            `${project._id}.mp4`
+
         );
 
-        if (!fs.existsSync(this.outputFolder)) {
+        if (!project.photos || project.photos.length === 0) {
 
-            fs.mkdirSync(
-                this.outputFolder,
-                {
-                    recursive: true
-                }
+            return reject(
+
+                new Error("El proyecto no contiene imágenes.")
+
             );
 
         }
 
-    }
+        ffmpeg()
 
-    async generate({
+            .input(project.photos[0])
 
-        images = [],
-
-        music = null,
-
-        output = "video.mp4"
-
-    }) {
-
-        return new Promise((resolve, reject) => {
-
-            if (images.length === 0) {
-
-                return reject(
-                    new Error(
-                        "No hay imágenes para generar el video."
-                    )
-                );
-
-            }
-
-            const outputPath = path.join(
-                this.outputFolder,
-                output
-            );
-
-            let command = ffmpeg();
-
-            images.forEach(image => {
-
-                command.input(image);
-
-            });
-
-            if (music) {
-
-                command.input(music);
-
-            }
-
-            command
+            .loop(5)
 
             .videoCodec("libx264")
 
-            .audioCodec("aac")
+            .size("1080x1920")
+
+            .fps(30)
 
             .outputOptions([
 
-                "-pix_fmt yuv420p",
-
-                "-shortest"
+                "-pix_fmt yuv420p"
 
             ])
 
-            .save(outputPath)
+            .save(outputFile)
 
             .on("end", () => {
 
-                resolve({
-
-                    success: true,
-
-                    path: outputPath
-
-                });
+                resolve(outputFile);
 
             })
 
-            .on("error", (error) => {
+            .on("error", (err) => {
 
-                reject(error);
+                reject(err);
 
             });
 
-        });
-
-    }
+    });
 
 }
 
-module.exports = new VideoGenerator();
+module.exports = {
+
+    generateVideo
+
+};
