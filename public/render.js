@@ -1,78 +1,85 @@
+const express = require("express");
+const router = express.Router();
+
+const auth = require("../middlewares/auth");
+const Project = require("../models/Project");
+const { generateVideo } = require("../services/videoGenerator");
+
+
 /*
 ==================================
- LUNARA RENDER SCRIPT
+ LUNARA RENDER ROUTES
  Creado por Luis González
 ==================================
 */
 
-const progressBar = document.getElementById("progressBar");
-const progressText = document.getElementById("progressText");
-const previewVideo = document.getElementById("previewVideo");
-const downloadButton = document.getElementById("downloadButton");
 
-let progress = 0;
+// Generar video
 
-function updateProgress() {
+router.post("/:id", auth, async (req,res)=>{
 
-    progress += Math.floor(Math.random() * 8) + 3;
+    try{
 
-    if (progress > 100) {
+        const project = await Project.findOne({
 
-        progress = 100;
+            _id:req.params.id,
+
+            user:req.user.id
+
+        });
+
+
+        if(!project){
+
+            return res.status(404).json({
+
+                message:"Proyecto no encontrado"
+
+            });
+
+        }
+
+
+        project.status="rendering";
+
+        await project.save();
+
+
+        const videoPath = await generateVideo(project);
+
+
+        project.video = videoPath;
+
+        project.status="completed";
+
+        await project.save();
+
+
+        res.json({
+
+            message:"Video generado correctamente",
+
+            video:videoPath
+
+        });
+
+
+    }catch(error){
+
+
+        console.error(error);
+
+
+        res.status(500).json({
+
+            message:"Error generando video"
+
+        });
+
 
     }
 
-    progressBar.style.width = progress + "%";
+});
 
-    if (progress < 20) {
 
-        progressText.textContent =
-            "Preparando imágenes...";
-
-    } else if (progress < 40) {
-
-        progressText.textContent =
-            "Aplicando animaciones...";
-
-    } else if (progress < 60) {
-
-        progressText.textContent =
-            "Sincronizando música...";
-
-    } else if (progress < 80) {
-
-        progressText.textContent =
-            "Renderizando video...";
-
-    } else if (progress < 100) {
-
-        progressText.textContent =
-            "Finalizando...";
-
-    } else {
-
-        clearInterval(renderInterval);
-
-        progressText.textContent =
-            "✅ Video generado correctamente.";
-
-        previewVideo.style.display = "block";
-
-        previewVideo.src = "/videos/video.mp4";
-
-        downloadButton.style.display = "inline-block";
-
-        downloadButton.href =
-            "/api/video/download/video.mp4";
-
-    }
-
-}
-
-const renderInterval = setInterval(
-
-    updateProgress,
-
-    600
-
-);
+module.exports = router;
