@@ -1,119 +1,53 @@
 const mongoose = require("mongoose");
 
-const ProjectSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
 
-    user:{
-
-        type:mongoose.Schema.Types.ObjectId,
-
-        ref:"User",
-
-        required:true
-
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
 
-    title:{
-
-        type:String,
-
-        required:true,
-
-        trim:true
-
+    title: {
+        type: String,
+        default: "Nuevo proyecto"
     },
 
-    template:{
-
-        type:String,
-
-        default:"amor"
-
+    description: {
+        type: String,
+        default: ""
     },
 
-    photos:[
-
-        {
-
-            type:String
-
-        }
-
-    ],
-
-    music:{
-
-        type:String,
-
-        default:""
-
+    photos: {
+        type: [String],
+        default: []
     },
 
-    message:{
-
-        type:String,
-
-        default:""
-
+    music: {
+        type: String,
+        default: ""
     },
 
-    video:{
-
-        type:String,
-
-        default:""
-
+    theme: {
+        type: String,
+        default: "classic"
     },
 
-    thumbnail:{
-
-        type:String,
-
-        default:""
-
+    status: {
+        type: String,
+        default: "draft"
     },
 
-    duration:{
-
-        type:Number,
-
-        default:30
-
+    video: {
+        type: String,
+        default: ""
     },
 
-    status:{
-
-        type:String,
-
-        enum:["draft","rendering","completed","failed"],
-
-        default:"draft"
-
-    },
-
-    createdAt:{
-
-        type:Date,
-
-        default:Date.now
-
-    },
-
-    updatedAt:{
-
-        type:Date,
-
-        default:Date.now
-
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 
 });
 
-ProjectSchema.pre("save", function(next){
-
-    this.updatedAt = new Date();
-
-    next();
-
-});
-
-module.exports = mongoose.model("Project", ProjectSchema);
+module.exports = mongoose.model("Project", projectSchema);
